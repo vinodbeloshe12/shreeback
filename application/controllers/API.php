@@ -174,6 +174,19 @@ class Api extends REST_Controller{
         }
     }
 
+    function getUserDetailsById_get(){
+        $obj = new stdClass();
+        if($this->session->userData){
+        $id=  $this->get('id');
+        $result = $this->user_model->getUserDetailsById($id);
+        $this->response($result, 200);  
+       }else{
+        $obj->value=false;
+        $obj->message="User Not Logged in";
+        $this->response($obj, 200); 
+        }
+    }
+
 #------------------------------ Wishlist Start ----------------------------# 
 
 function getWatchlist_get(){

@@ -305,6 +305,24 @@ public function getUserDetails($id){
 }
 
 
+public function getUserDetailsById($id){
+  $query = $this->db->query("SELECT * FROM user WHERE id=$id")->row();
+  $idproof = $this->db->query("SELECT * FROM `idproof` WHERE cust_id=$id")->result_array();
+  $contacts = $this->db->query("SELECT * FROM `contacts` WHERE cust_id=$id")->result_array();
+  if($query){
+    $obj->value = true;
+    $obj->details =$query ;
+    $obj->idproof =$idproof ;
+    $obj->contacts =$contacts ;
+    return $obj ;
+  }else{
+    $obj->value = false;
+    $obj->message ="User not found." ;
+    return $obj ;
+  }
+}
+
+
 public function getIdProofDetails($id){
   $query = $this->db->query("SELECT * FROM `idproof` WHERE cust_id=$id")->result_array();
   if($query){
